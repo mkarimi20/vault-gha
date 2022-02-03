@@ -1,5 +1,5 @@
-FROM ubuntu
+FROM amazonlinux
 
-RUN apt-get update
+RUN yum update
 
-RUN apt-get -y install nginx
+RUN yum -y install nginx
