@@ -1,3 +1,3 @@
 FROM alpine
 
-RUN apk update -y
+RUN apk update
