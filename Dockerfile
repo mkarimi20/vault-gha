@@ -2,4 +2,4 @@ FROM alpine
 
 RUN apk update
 
-RUN apk install wget
+RUN echo "Running a test"
