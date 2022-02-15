@@ -1,5 +1,5 @@
-FROM amazonlinux
+FROM alpine
 
-RUN yum update
+RUN apk install wget -y
 
-RUN yum -y install nginx
+RUN apk update -y
