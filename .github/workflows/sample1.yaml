@@ -39,5 +39,7 @@ jobs:
     needs: deploy
     uses: ./.github/workflows/pushdocker.yaml
     secrets: inherit
+    with:
+      foo: "bar"
     
       
