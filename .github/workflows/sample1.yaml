@@ -14,7 +14,8 @@ jobs:
     steps:
     - name: setting variable
       run: |
-        PR_APM="${{ github.head_ref }}"
+        FULL_BRANCH_NAME="${{ github.head_ref }}"
+        PR_APM=$(echo "$FULL_BRANCH_NAME" | cut -d'/' -f3)
         echo "APM id for this action is $PR_APM"
         echo "PR_APM=$PR_APM" >> $GITHUB_ENV
     - name: Checkout
