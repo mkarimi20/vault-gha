@@ -36,7 +36,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
   call-terraform-apply:
-    needs: deploy
     uses: ./.github/workflows/pushdocker.yaml
     secrets: inherit
     with:
