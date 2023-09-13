@@ -1,19 +1,8 @@
 name: My CI Workflow
 
 on:
-  workflow_call:
-    inputs:
-      foo:
-        description: 'Please approve the PR'
-        required: true
-        default: 'bar'
-        type: string
-      PRApproval:
-        description: "Please approve the PR"
-        required: true
-        type: boolean
-  pull_request_review:
-    types: [submitted]
+  push:
+    branches: [ main ]
 
 jobs:
   build-and-push:
