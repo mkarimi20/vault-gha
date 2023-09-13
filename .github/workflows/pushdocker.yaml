@@ -1,13 +1,16 @@
 name: My CI Workflow
 
 on:
-  push:
-    branches: [ main ]
+  workflow_call:
+  # push:
+  #   branches: [ main ]
 
 jobs:
   deploy:
     name: ubuntu
     runs-on: ubuntu-latest
+    environment: 
+      name: protected-environment
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
