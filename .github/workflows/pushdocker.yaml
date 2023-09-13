@@ -1,12 +1,16 @@
----
-name: runner-eks
+name: My CI Workflows
+
 on:
-  pull_request:
-    branches: [ main ]    
+  workflow_call:
+  # push:
+  #   branches: [ main ]
+
 jobs:
   deploy:
     name: ubuntu
     runs-on: ubuntu-latest
+    environment: 
+      name: protected-environment
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -34,10 +38,9 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-  call-terraform-apply:
-    needs: deploy
-    uses: ./.github/workflows/pushdocker.yaml
-    secrets: inherit
-    
-      
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: mkarimi20/alpine2:latest
+  
