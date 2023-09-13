@@ -2,7 +2,9 @@
 name: runner-eks
 on:
   pull_request:
-    branches: [ main ]    
+    branches: [ main ]
+  push:
+    branches: [ main ]
 jobs:
   deploy:
     name: ubuntu
@@ -36,6 +38,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
   call-terraform-apply:
+    if: github.event_name == 'push'
     needs: deploy
     uses: ./.github/workflows/pushdocker.yaml
     secrets: inherit
