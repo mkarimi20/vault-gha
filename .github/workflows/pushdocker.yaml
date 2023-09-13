@@ -16,9 +16,10 @@ jobs:
     # # Only run the job if it's an approval review
     # if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: mkarimi20/alpine2:latest
+    steps:
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: mkarimi20/alpine2:latest
   
