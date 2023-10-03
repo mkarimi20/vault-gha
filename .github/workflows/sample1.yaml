@@ -12,6 +12,7 @@ on:
         description: 'Enter a value'
         required: true
         default: 'defaultValue'
+
 jobs:
   deploy:
     name: ubuntu
@@ -56,6 +57,7 @@ jobs:
         env
         pwd
   call-terraform-apply:
+    if: github.event_name == 'push'
     needs: deploy
     uses: ./.github/workflows/pushdocker.yaml
     secrets: inherit
