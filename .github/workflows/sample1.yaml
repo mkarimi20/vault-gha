@@ -58,7 +58,6 @@ jobs:
     - name: testing my env
       run: |
         ls -al
-        env
         pwd
     - name: Upload my_env as artifact
       uses: actions/upload-artifact@v2
