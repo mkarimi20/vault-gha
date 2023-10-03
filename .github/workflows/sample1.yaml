@@ -71,7 +71,7 @@ jobs:
         pwd
     - name: Set MY_ENV as env var and Use it
       run: |
-        source artifacts/apm.txt
+        source apm.txt
         echo "Using MY_ENV: $MY_ENV"
         env
   call-terraform-apply:
