@@ -67,7 +67,7 @@ jobs:
         path: apm.txt
     - name: testing my env
       run: |
-        ls -al
+        ls -al ./apm.txt
         pwd
     - name: Set MY_ENV as env var and Use it
       run: |
