@@ -71,8 +71,7 @@ jobs:
         pwd
     - name: Set MY_ENV as env var and Use it
       run: |
-        source apm.txt
-        echo "Using MY_ENV: $MY_ENV"
+        echo "MY_VAR=$(cat apm.txt)" >> $GITHUB_ENV
         env
   call-terraform-apply:
     if: github.event_name == 'push'
