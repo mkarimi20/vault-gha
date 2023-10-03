@@ -60,16 +60,15 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: testing my env
-      run: |
-        ls -al
-        pwd
     - name: Download my_env artifact
       uses: actions/download-artifact@v2
       with:
         name: my-env-artifact
         path: apm.txt
-
+    - name: testing my env
+      run: |
+        ls -al
+        pwd
     - name: Set MY_ENV as env var and Use it
       run: |
         source artifacts/apm.txt
