@@ -72,7 +72,7 @@ jobs:
 
     - name: Set MY_ENV as env var and Use it
       run: |
-        source artifacts/my_env.txt
+        source artifacts/apm.txt
         echo "Using MY_ENV: $MY_ENV"
         env
   call-terraform-apply:
