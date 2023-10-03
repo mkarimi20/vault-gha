@@ -28,10 +28,10 @@ jobs:
           # Extract part3 from the PR branch name
           PART=$(echo "${{ github.head_ref }}" | awk -F'/' '{print $3}')
           echo "MY_VAR=$PART" >> $GITHUB_ENV
-          echo "MY_ENV=$PART" > apm.txt
+          echo "MY_ENV=$PART" > apm
           ls -al
           pwd
-          cat apm.txt
+          cat apm
         # elif [[ "${{ github.event_name }}" == "push" && "${{ github.event.after }}" != "" ]]; then
         #   # Extract part3 from the push branch name, if it's not a merge commit
         #   PART=$(echo "${{ github.ref }}" | awk -F'/' '{print $4}')
@@ -43,7 +43,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: my-env-artifact
-        path: apm.txt
+        path: apm
     - name: Checkout
       uses: actions/checkout@main
     - name: Set up Docker Buildx
@@ -64,14 +64,14 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: my-env-artifact
-        path: apm.txt
+        path: apm
     - name: testing my env
       run: |
-        ls -al ./apm.txt
+        ls -al ./apm
         pwd
     - name: Set MY_ENV as env var and Use it
       run: |
-        echo "MY_VAR=$(cat apm.txt)" >> $GITHUB_ENV
+        echo "MY_VAR=$(cat apm/apm)" >> $GITHUB_ENV
         env
   call-terraform-apply:
     if: github.event_name == 'push'
