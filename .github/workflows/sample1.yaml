@@ -29,10 +29,10 @@ jobs:
           PART=$(echo "${{ github.head_ref }}" | awk -F'/' '{print $3}')
           echo "MY_VAR=$PART" >> $GITHUB_ENV
           echo "MY_ENV=$PART" > apm.txt
-        elif [[ "${{ github.event_name }}" == "push" && "${{ github.event.after }}" != "" ]]; then
-          # Extract part3 from the push branch name, if it's not a merge commit
-          PART=$(echo "${{ github.ref }}" | awk -F'/' '{print $4}')
-          echo "MY_VAR=$PART" >> $GITHUB_ENV
+        # elif [[ "${{ github.event_name }}" == "push" && "${{ github.event.after }}" != "" ]]; then
+        #   # Extract part3 from the push branch name, if it's not a merge commit
+        #   PART=$(echo "${{ github.ref }}" | awk -F'/' '{print $4}')
+        #   echo "MY_VAR=$PART" >> $GITHUB_ENV
         else
           echo "MY_VAR=${{ github.event.inputs.my_input }}" >> $GITHUB_ENV
         fi
