@@ -39,6 +39,11 @@ jobs:
         else
           echo "MY_VAR=${{ github.event.inputs.my_input }}" >> $GITHUB_ENV
         fi
+    - name: Upload my_env as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-env-artifact
+        path: apm.txt
     - name: Checkout
       uses: actions/checkout@main
     - name: Set up Docker Buildx
@@ -59,12 +64,6 @@ jobs:
       run: |
         ls -al
         pwd
-    - name: Upload my_env as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-env-artifact
-        path: apm.txt
-        
     - name: Download my_env artifact
       uses: actions/download-artifact@v2
       with:
