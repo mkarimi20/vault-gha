@@ -67,7 +67,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: my-env-artifact
-        path: artifacts
+        path: apm.txt
 
     - name: Set MY_ENV as env var and Use it
       run: |
