@@ -61,15 +61,13 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Download my_env artifact
+      if: github.event_name == 'push'
       uses: actions/download-artifact@v2
       with:
         name: my-env-artifact
         path: apm
-    - name: testing my env
-      run: |
-        ls -al ./apm
-        pwd
     - name: Set MY_ENV as env var and Use it
+      if: github.event_name == 'push'
       run: |
         echo "MY_VAR=$(cat apm/apm)" >> $GITHUB_ENV
         env
