@@ -28,9 +28,6 @@ jobs:
           # Extract the third segment from the PR branch name
           PART=$(echo "${{ github.head_ref }}" | awk -F'/' '{print $3}')
           echo "MY_VAR=$PART" >> $GITHUB_ENV
-          ls -al
-          pwd
-          cat apm
         elif [[ "${{ github.event_name }}" == "push" ]]; then
           COMMIT_MSG=$(git log --format=%B -n 1 $GITHUB_SHA)
           # Extract the third segment from the merge commit message
