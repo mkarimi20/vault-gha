@@ -22,6 +22,18 @@ jobs:
       id-token: write
       contents: read
     steps:
+    - name: Upload my_env as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-env-artifact
+        path: apm
+    - name: getting location
+      run: |
+        pwd
+        ls -al
+        env
+    - name: Checkout
+      uses: actions/checkout@main
     - name: setting variable
       run: |
         if [[ "${{ github.event_name }}" == "pull_request" ]]; then
@@ -36,18 +48,6 @@ jobs:
         else
           echo "MY_VAR=${{ github.event.inputs.my_input }}" >> $GITHUB_ENV
         fi
-    - name: Upload my_env as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-env-artifact
-        path: apm
-    - name: getting location
-      run: |
-        pwd
-        ls -al
-        env
-    - name: Checkout
-      uses: actions/checkout@main
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v1
