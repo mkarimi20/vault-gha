@@ -48,6 +48,11 @@ jobs:
         else
           echo "MY_VAR=${{ github.event.inputs.my_input }}" >> $GITHUB_ENV
         fi
+    - name: getting location
+      run: |
+        pwd
+        ls -al
+        env
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v1
