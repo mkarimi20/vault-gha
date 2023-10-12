@@ -52,6 +52,7 @@ jobs:
       run: |
         pwd
         ls -al
+        env
     - name: Checkout
       uses: actions/checkout@main
     - name: Set up Docker Buildx
