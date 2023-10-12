@@ -35,10 +35,6 @@ jobs:
           COMMIT_MSG=$(git log --format=%B -n 1 $GITHUB_SHA)
           # Extract the third segment from the merge commit message
           EXTRACTED_VALUE=$(echo $COMMIT_MSG | grep -oP 'Merge pull request.*from [^/]+/[^/]+/\K[^/]+')
-          if [ -z "$EXTRACTED_VALUE" ]; then
-            echo "Failed to extract the desired value"
-            exit 1
-          fi
           echo "MY_VAR=$EXTRACTED_VALUE" >> $GITHUB_ENV
         else
           echo "MY_VAR=${{ github.event.inputs.my_input }}" >> $GITHUB_ENV
