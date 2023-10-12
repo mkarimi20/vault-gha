@@ -25,17 +25,21 @@ jobs:
     - name: setting variable
       run: |
         if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-          # Extract part3 from the PR branch name
+          # Extract the third segment from the PR branch name
           PART=$(echo "${{ github.head_ref }}" | awk -F'/' '{print $3}')
           echo "MY_VAR=$PART" >> $GITHUB_ENV
-          echo "MY_ENV=$PART" > apm
           ls -al
           pwd
           cat apm
-        # elif [[ "${{ github.event_name }}" == "push" && "${{ github.event.after }}" != "" ]]; then
-        #   # Extract part3 from the push branch name, if it's not a merge commit
-        #   PART=$(echo "${{ github.ref }}" | awk -F'/' '{print $4}')
-        #   echo "MY_VAR=$PART" >> $GITHUB_ENV
+        elif [[ "${{ github.event_name }}" == "push" ]]; then
+          COMMIT_MSG=$(git log --format=%B -n 1 $GITHUB_SHA)
+          # Extract the third segment from the merge commit message
+          EXTRACTED_VALUE=$(echo $COMMIT_MSG | grep -oP 'Merge pull request.*from [^/]+/[^/]+/\K[^/]+')
+          if [ -z "$EXTRACTED_VALUE" ]; then
+            echo "Failed to extract the desired value"
+            exit 1
+          fi
+          echo "MY_VAR=$EXTRACTED_VALUE" >> $GITHUB_ENV
         else
           echo "MY_VAR=${{ github.event.inputs.my_input }}" >> $GITHUB_ENV
         fi
