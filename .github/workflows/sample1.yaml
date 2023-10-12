@@ -48,6 +48,10 @@ jobs:
       with:
         name: my-env-artifact
         path: apm
+    - name: getting location
+      run: |
+        pwd
+        ls -al
     - name: Checkout
       uses: actions/checkout@main
     - name: Set up Docker Buildx
