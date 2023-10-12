@@ -22,15 +22,19 @@ jobs:
       id-token: write
       contents: read
     steps:
+    - name: Upload my_env as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-env-artifact
+        path: apm
+    - name: Checkout
+      uses: actions/checkout@main
     - name: setting variable
       run: |
         if [[ "${{ github.event_name }}" == "pull_request" ]]; then
           # Extract the third segment from the PR branch name
           PART=$(echo "${{ github.head_ref }}" | awk -F'/' '{print $3}')
           echo "MY_VAR=$PART" >> $GITHUB_ENV
-          ls -al
-          pwd
-          cat apm
         elif [[ "${{ github.event_name }}" == "push" ]]; then
           COMMIT_MSG=$(git log --format=%B -n 1 $GITHUB_SHA)
           # Extract the third segment from the merge commit message
@@ -43,18 +47,11 @@ jobs:
         else
           echo "MY_VAR=${{ github.event.inputs.my_input }}" >> $GITHUB_ENV
         fi
-    - name: Upload my_env as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-env-artifact
-        path: apm
     - name: getting location
       run: |
         pwd
         ls -al
         env
-    - name: Checkout
-      uses: actions/checkout@main
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v1
