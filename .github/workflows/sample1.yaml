@@ -50,7 +50,7 @@ jobs:
         fi
     - name: Set MY_VAR as output
       id: outputvar
-      run: echo "MY_VAR_OUTPUT=$MY_VAR" >> $GITHUB_ENV
+      run: echo "::set-output name=MY_VAR_OUTPUT::${MY_VAR}"
     - name: getting location
       run: |
         pwd
@@ -79,9 +79,12 @@ jobs:
   call-terraform-apply:
     if: github.event_name == 'push'
     needs: deploy
-    with:
-      my_var: ${{ needs.deploy.outputs.my_var }}
-    uses: ./.github/workflows/pushdocker.yaml
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+    - name: call terraform apply
+      uses: ./.github/workflows/pushdocker.yaml
+      with:
+        my_var: ${{ needs.deploy.outputs.my_var }}
+        secrets: inherit
     
       
