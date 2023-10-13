@@ -21,7 +21,9 @@ jobs:
       contents: read
     steps:
     - name: Set environment variable
-      run: echo "PR_APM=${{ inputs.my_var }}" >> $GITHUB_ENV
+      run: |
+        echo "Running Terraform Apply with MY_VAR: ${{ inputs.my_var }}"
+        echo "PR_APM=${{ inputs.my_var }}" >> $GITHUB_ENV
     - name: setting variable
       run: |
         env
