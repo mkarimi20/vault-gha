@@ -20,9 +20,10 @@ jobs:
       id-token: write
       contents: read
     steps:
+    - name: Set environment variable
+      run: echo "PR_APM=${{ inputs.my_var }}" >> $GITHUB_ENV
     - name: setting variable
       run: |
-        echo "Running Terraform Apply with MY_VAR: ${{ inputs.my_var }}"
         env
     - name: Checkout
       uses: actions/checkout@main
