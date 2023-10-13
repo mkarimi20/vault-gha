@@ -2,6 +2,10 @@ name: My CI Workflows
 
 on:
   workflow_call:
+    inputs:
+      my_var:
+        required: true
+        type: string
   # push:
   #   branches: [ main ]
 
@@ -18,10 +22,8 @@ jobs:
     steps:
     - name: setting variable
       run: |
-        FULL_BRANCH_NAME="${{ github.head_ref }}"
-        PR_APM=$(echo "$FULL_BRANCH_NAME" | cut -d'/' -f3)
-        echo "APM id for this action is $PR_APM"
-        echo "PR_APM=$PR_APM" >> $GITHUB_ENV
+        echo "Running Terraform Apply with MY_VAR: ${{ inputs.my_var }}"
+        env
     - name: Checkout
       uses: actions/checkout@main
     - name: Set up Docker Buildx
