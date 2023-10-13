@@ -48,6 +48,9 @@ jobs:
         else
           echo "MY_VAR=${{ github.event.inputs.my_input }}" >> $GITHUB_ENV
         fi
+    - name: Set MY_VAR as output
+      id: outputvar
+      run: echo "MY_VAR_OUTPUT=$MY_VAR" >> $GITHUB_ENV
     - name: getting location
       run: |
         pwd
@@ -78,9 +81,13 @@ jobs:
       run: |
         echo "MY_VAR=$(cat apm/apm)" >> $GITHUB_ENV
         env
+    outputs:
+      my_var: ${{ steps.outputvar.outputs.MY_VAR_OUTPUT }}
   call-terraform-apply:
     if: github.event_name == 'push'
     needs: deploy
+    with:
+      my_var: ${{ needs.deploy.outputs.my_var }}
     uses: ./.github/workflows/pushdocker.yaml
     secrets: inherit
     
