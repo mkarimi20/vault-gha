@@ -79,12 +79,9 @@ jobs:
   call-terraform-apply:
     if: github.event_name == 'push'
     needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: call terraform apply
-      uses: ./.github/workflows/pushdocker.yaml
-      with:
-        my_var: ${{ needs.deploy.outputs.my_var }}
-        secrets: inherit
+    with:
+      my_var: ${{ needs.deploy.outputs.my_var }}
+    uses: ./.github/workflows/pushdocker.yaml
+    secrets: inherit
     
       
