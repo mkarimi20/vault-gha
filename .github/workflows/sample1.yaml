@@ -54,7 +54,6 @@ jobs:
     - name: getting location
       run: |
         pwd
-        ls -al
         env
     - name: Set up Docker Buildx
       id: buildx
@@ -70,17 +69,11 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Download my_env artifact
-      if: github.event_name == 'push'
-      uses: actions/download-artifact@v2
-      with:
-        name: my-env-artifact
-        path: apm
-    - name: Set MY_ENV as env var and Use it
-      if: github.event_name == 'push'
-      run: |
-        echo "MY_VAR=$(cat apm/apm)" >> $GITHUB_ENV
-        env
+    # - name: Set MY_ENV as env var and Use it
+    #   if: github.event_name == 'push'
+    #   run: |
+    #     echo "MY_VAR=$(cat apm/apm)" >> $GITHUB_ENV
+    #     env
     outputs:
       my_var: ${{ steps.outputvar.outputs.MY_VAR_OUTPUT }}
   call-terraform-apply:
